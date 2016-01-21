@@ -32,7 +32,7 @@ export default class extends React.Component {
         this.setState({
           active: false
         })
-      }.bind(this), 150)
+      }.bind(this), 275)
     }
   }
 
