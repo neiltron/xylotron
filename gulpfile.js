@@ -7,6 +7,7 @@ var del        = require('del');
 var browserify = require('browserify');
 var watchify   = require('watchify');
 var source     = require('vinyl-source-stream');
+var ghPages    = require('gulp-gh-pages');
 
 var bundler = {
   w: null,
@@ -85,6 +86,7 @@ gulp.task('extras', function () {
 gulp.task('serve', function() {
   gulp.src('dist')
     .pipe($.webserver({
+      host: '0.0.0.0',
       livereload: true,
       port: 9000
     }));
@@ -121,6 +123,11 @@ gulp.task('build', ['clean-bundle'], bundler.stop.bind(bundler));
 gulp.task('build:production', sync(['set-production', 'build', 'minify']));
 
 gulp.task('serve:production', sync(['build:production', 'serve']));
+
+gulp.task('deploy', function() {
+  return gulp.src('./dist/**/*')
+    .pipe(ghPages());
+});
 
 gulp.task('default', ['build']);
 
