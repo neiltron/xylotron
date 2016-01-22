@@ -53,7 +53,7 @@ export default class extends React.Component {
         float: 'left'
       },
       label: {
-        transform: 'scale(' + (this.state.active ? .6667 : 1) + ')'
+        transform: 'scale(' + (this.state.active ? .844 : 1) + ')'
       }
     };
 
