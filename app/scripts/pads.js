@@ -2,74 +2,50 @@ export default [
   {
     key: 'q',
     keycode: 81,
-    text: 'Louis Vuitton',
-    pronunciation: 'louis   vwee ton',
-    color: '#fefefe'
+    text: 'clap',
+    sample: 'clap',
+    color: '#fcfcfc'
   }, {
     key: 'w',
     keycode: 87,
-    text: 'Prada',
-    pronunciation: 'prada',
-    color: '#fcfcfc'
+    text: 'closed hihat',
+    sample: 'closedhihat',
+    color: '#fafafa'
   }, {
     key: 'e',
     keycode: 69,
-    text: 'Gucci',
-    pronunciation: 'gucci',
-    color: '#fafafa'
+    text: 'kick',
+    sample: 'kick',
+    color: '#fdfdfd'
   }, {
     key: 'a',
     keycode: 65,
-    text: 'Chanel',
-    pronunciation: 'shanell',
-    color: '#fdfdfd'
+    text: 'openhihat',
+    sample: 'openhihat',
+    color: '#fbfbfb'
   }, {
     key: 's',
     keycode: 83,
-    text: 'Fendi',
-    pronunciation: 'fendi',
-    color: '#fbfbfb'
+    text: 'ride',
+    sample: 'ride',
+    color: '#f9f9f9'
   }, {
     key: 'd',
     keycode: 68,
-    text: 'Armani',
-    pronunciation: 'armani',
-    color: '#f9f9f9'
+    text: 'shaker',
+    sample: 'shaker',
+    color: '#fcfcfc'
   }, {
     key: 'z',
     keycode: 90,
-    text: 'Givenchy',
-    pronunciation: 'givenchy',
-    color: '#fcfcfc'
+    text: 'snare',
+    sample: 'snare',
+    color: '#fafafa'
   }, {
     key: 'x',
     keycode: 88,
-    text: 'Hermès',
-    pronunciation: 'Hermès',
-    color: '#fafafa'
-  }, {
-    key: 'c',
-    keycode: 67,
-    text: 'Christian Dior',
-    pronunciation: 'christian dior',
+    text: 'symbol',
+    sample: 'symbol',
     color: '#f8f8f8'
-  }, {
-    key: 'r',
-    keycode: 82,
-    text: 'Balenciaga',
-    pronunciation: 'balenciaga',
-    color: '#fbfbfb'
-  }, {
-    key: 't',
-    keycode: 84,
-    text: 'Cartier',
-    pronunciation: 'Cartier',
-    color: '#f9f9f9'
-  }, {
-    key: 'y',
-    keycode: 89,
-    text: 'Bulgari',
-    pronunciation: 'bulgari',
-    color: '#f7f7f7'
   }
 ];

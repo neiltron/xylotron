@@ -1,5 +1,4 @@
 import React from 'react';
-import speechSynthesis from 'speech-synthesis';
 
 export default class extends React.Component {
   constructor(props) {
@@ -22,8 +21,10 @@ export default class extends React.Component {
 
   _handleKeydown(e) {
     if (e.keyCode == this.props.keycode) {
-      // daniel,
-      speechSynthesis(this.props.pronunciation, 'Ellen');
+
+      //this.props.sample
+      this.audio = new Audio('/audio/' + this.props.sample + '.WAVz');
+      this.audio.play();
 
       this.setState({
         active: true
