@@ -55,32 +55,38 @@ var _default = (function (_React$Component) {
       items: [{
         key: 'q',
         keycode: 81,
-        text: 'whats',
+        text: 'louis vuitton',
+        pronunciation: 'louis   vwee ton',
         color: '#fefefe'
       }, {
         key: 'w',
         keycode: 87,
-        text: 'lou',
+        text: 'prada',
+        pronunciation: 'prada',
         color: '#fcfcfc'
       }, {
         key: 'e',
         keycode: 69,
-        text: 'e',
+        text: 'gucci',
+        pronunciation: 'gucci',
         color: '#fafafa'
       }, {
         key: 'a',
         keycode: 65,
-        text: 'my',
+        text: 'chanel',
+        pronunciation: 'shanelle',
         color: '#fdfdfd'
       }, {
         key: 's',
         keycode: 83,
-        text: 'kill',
+        text: 'fendi',
+        pronunciation: 'fendi',
         color: '#fbfbfb'
       }, {
         key: 'd',
         keycode: 68,
-        text: 'uh',
+        text: 'armani',
+        pronunciation: 'armani',
         color: '#f9f9f9'
       }]
     };
@@ -101,6 +107,7 @@ var _default = (function (_React$Component) {
       return _react2['default'].createElement(_pad2['default'], {
         color: item.color,
         text: item.text,
+        pronunciation: item.pronunciation,
         key: item.keycode,
         keybind: item.key,
         keycode: item.keycode });
@@ -171,7 +178,8 @@ var _default = (function (_React$Component) {
       var _this = this;
 
       if (e.keyCode == this.props.keycode) {
-        (0, _speechSynthesis2['default'])(this.props.text, 'en-IN');
+        // daniel,
+        (0, _speechSynthesis2['default'])(this.props.pronunciation, 'Ellen');
 
         this.setState({
           active: true
@@ -206,8 +214,13 @@ var _default = (function (_React$Component) {
         'div',
         { className: 'pad', style: styles.container, key: this.props.keycode, onClick: this._handleClick.bind(this) },
         _react2['default'].createElement(
-          'span',
+          'div',
           { style: styles.label },
+          this.props.text
+        ),
+        _react2['default'].createElement(
+          'small',
+          null,
           this.props.keybind
         )
       );

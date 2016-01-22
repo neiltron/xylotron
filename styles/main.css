@@ -14,8 +14,9 @@ body {
   cursor: pointer;
   outline: 0;
   -webkit-tap-highlight-color: transparent;
+  position: relative;
 }
-.pad span {
+.pad div {
   font-size: 3em;
   font-weight: 300;
   display: block;
@@ -25,6 +26,16 @@ body {
   -webkit-transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1);
   -webkit-transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
   transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.pad small {
+  display: block;
+  font-size: 1em;
+  font-weight: 100;
+  position: absolute;
+  line-height: 1em;
+  top: .5em;
+  left: .5em;
+  color: #aaa;
 }
 
 .browsehappy {
