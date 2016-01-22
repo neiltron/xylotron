@@ -18,11 +18,17 @@ body {
   outline: 0;
   -webkit-tap-highlight-color: transparent;
 
+  -webkit-touch-callout: none;
+    -webkit-user-select: none;
+     -khtml-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
+
   @media screen and (max-width: $break-extrasmall) {
     width: 50vw;
     height: 22vh;
   }
-
 
   div {
     font-size: 3em;
