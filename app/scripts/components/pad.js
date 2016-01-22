@@ -4,6 +4,8 @@ export default class extends React.Component {
   constructor(props) {
     super(props);
 
+    this.audio = new Audio('/audio/' + this.props.sample + '.WAV');
+
     this.state = {
       active: false
     }
@@ -21,9 +23,6 @@ export default class extends React.Component {
 
   _handleKeydown(e) {
     if (e.keyCode == this.props.keycode) {
-
-      //this.props.sample
-      this.audio = new Audio('/audio/' + this.props.sample + '.WAVz');
       this.audio.play();
 
       this.setState({
@@ -38,8 +37,10 @@ export default class extends React.Component {
     }
   }
 
-  _handleClick () {
-    this._handleKeydown({ keyCode: this.props.keycode })
+  _handleClick (e) {
+    this._handleKeydown({ keyCode: this.props.keycode });
+
+    e.preventDefault();
   }
 
   render() {
@@ -54,7 +55,7 @@ export default class extends React.Component {
     };
 
     return (
-      <div className='pad' style={styles.container} key={this.props.keycode} onClick={this._handleClick.bind(this)}>
+      <div className='pad' style={styles.container} key={this.props.keycode} onClick={this._handleClick.bind(this)} onTouchTap={this._handleClick.bind(this)}>
         <div style={styles.label}>
           {this.props.text}
         </div>

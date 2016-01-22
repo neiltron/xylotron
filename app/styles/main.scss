@@ -9,17 +9,18 @@ body {
 }
 
 .pad {
-  width: 33.2vw;
-  height: 33.2vh;
+  width: 25vw;
+  height: 50vh;
   position: relative;
   text-align: center;
   vertical-align: middle;
   cursor: pointer;
   outline: 0;
-  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  -webkit-tap-highlight-color: transparent;
 
   @media screen and (max-width: $break-extrasmall) {
     width: 50vw;
+    height: 24vh;
   }
 
 
