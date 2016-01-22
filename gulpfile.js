@@ -77,6 +77,12 @@ gulp.task('fonts', function() {
     .pipe($.size());
 });
 
+gulp.task('audio', function () {
+  return gulp.src(['app/audio/*'])
+    .pipe(gulp.dest('dist/audio'))
+    .pipe($.size());
+});
+
 gulp.task('extras', function () {
   return gulp.src(['app/*.txt', 'app/*.ico'])
     .pipe(gulp.dest('dist/'))
@@ -114,7 +120,7 @@ gulp.task('minify', ['minify:js', 'minify:css']);
 
 gulp.task('clean', del.bind(null, 'dist'));
 
-gulp.task('bundle', ['html', 'styles', 'scripts', 'images', 'fonts', 'extras']);
+gulp.task('bundle', ['html', 'styles', 'scripts', 'images', 'fonts', 'audio', 'extras']);
 
 gulp.task('clean-bundle', sync(['clean', 'bundle']));
 
