@@ -1,10 +1,13 @@
 import React from 'react';
+import howler from 'howler';
 
 export default class extends React.Component {
   constructor(props) {
     super(props);
 
-    this.audio = new Audio('/audio/' + this.props.sample + '.WAV');
+    this.audio = new Howl({
+      urls: ['/audio/' + this.props.sample + '.WAV']
+    })
 
     this.state = {
       active: false
