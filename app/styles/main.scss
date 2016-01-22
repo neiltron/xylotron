@@ -15,12 +15,13 @@ body {
   cursor: pointer;
   outline: 0;
   -webkit-tap-highlight-color: rgba(0,0,0,0);
+  position: relative;
 
-  span {
+
+  div {
     font-size: 3em;
     font-weight: 300;
     display: block;
-
 
     -webkit-transition: all 250ms cubic-bezier(0.175, 0.885, 0.320, 1);
     -webkit-transition: all 250ms cubic-bezier(0.175, 0.885, 0.320, 1.275);
@@ -33,7 +34,17 @@ body {
        -moz-transition-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1.275);
          -o-transition-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1.275);
             transition-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1.275);
+  }
 
+  small {
+    display: block;
+    font-size: 1em;
+    font-weight: 100;
+    position: absolute;
+    line-height: 1em;
+    top: .5em;
+    left: .5em;
+    color: #aaa;
   }
 }
 

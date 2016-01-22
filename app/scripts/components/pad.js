@@ -22,7 +22,8 @@ export default class extends React.Component {
 
   _handleKeydown(e) {
     if (e.keyCode == this.props.keycode) {
-      speechSynthesis(this.props.text, 'en-IN');
+      // daniel,
+      speechSynthesis(this.props.pronunciation, 'Ellen');
 
       this.setState({
         active: true
@@ -53,7 +54,10 @@ export default class extends React.Component {
 
     return (
       <div className='pad' style={styles.container} key={this.props.keycode} onClick={this._handleClick.bind(this)}>
-        <span style={styles.label}>{this.props.keybind}</span>
+        <div style={styles.label}>
+          {this.props.text}
+        </div>
+        <small>{this.props.keybind}</small>
       </div>
     );
   }

@@ -9,32 +9,38 @@ export default class extends React.Component {
         {
           key: 'q',
           keycode: 81,
-          text: 'whats',
+          text: 'louis vuitton',
+          pronunciation: 'louis   vwee ton',
           color: '#fefefe'
         }, {
           key: 'w',
           keycode: 87,
-          text: 'lou',
+          text: 'prada',
+          pronunciation: 'prada',
           color: '#fcfcfc'
         }, {
           key: 'e',
           keycode: 69,
-          text: 'e',
+          text: 'gucci',
+          pronunciation: 'gucci',
           color: '#fafafa'
         }, {
           key: 'a',
           keycode: 65,
-          text: 'my',
+          text: 'chanel',
+          pronunciation: 'shanelle',
           color: '#fdfdfd'
         }, {
           key: 's',
           keycode: 83,
-          text: 'kill',
+          text: 'fendi',
+          pronunciation: 'fendi',
           color: '#fbfbfb'
         }, {
           key: 'd',
           keycode: 68,
-          text: 'uh',
+          text: 'armani',
+          pronunciation: 'armani',
           color: '#f9f9f9'
         }
       ]
@@ -53,6 +59,7 @@ export default class extends React.Component {
     return <Pad
             color={item.color}
             text={item.text}
+            pronunciation={item.pronunciation}
             key={item.keycode}
             keybind={item.key}
             keycode={item.keycode} />;
