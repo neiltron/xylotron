@@ -6,7 +6,7 @@ export default class extends React.Component {
     super(props);
 
     this.audio = new Howl({
-      urls: ['/audio/' + this.props.sample + '.WAV']
+      urls: ['audio/' + this.props.sample + '.WAV']
     })
 
     this.state = {
