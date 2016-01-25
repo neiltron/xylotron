@@ -130,7 +130,7 @@ gulp.task('build:production', sync(['set-production', 'build', 'minify']));
 
 gulp.task('serve:production', sync(['build:production', 'serve']));
 
-gulp.task('deploy', function() {
+gulp.task('deploy', ['bundle'], function() {
   return gulp.src('./dist/**/*')
     .pipe(ghPages());
 });
