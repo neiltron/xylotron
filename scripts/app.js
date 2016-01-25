@@ -131,7 +131,7 @@ var _default = (function (_React$Component) {
     _get(Object.getPrototypeOf(_default.prototype), 'constructor', this).call(this, props);
 
     this.audio = new Howl({
-      urls: ['/audio/' + this.props.sample + '.WAV']
+      urls: ['audio/' + this.props.sample + '.WAV']
     });
 
     this.state = {
