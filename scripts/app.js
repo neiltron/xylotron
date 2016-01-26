@@ -266,8 +266,8 @@ exports['default'] = [{
 }, {
   key: 'x',
   keycode: 88,
-  text: 'symbol',
-  sample: 'symbol',
+  text: 'cymbal',
+  sample: 'cymbal',
   color: '#f8f8f8'
 }];
 module.exports = exports['default'];
