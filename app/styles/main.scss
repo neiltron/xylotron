@@ -64,6 +64,10 @@ body {
     top: .5em;
     left: .5em;
     color: #aaa;
+
+    @media screen and (max-width: $break-small) {
+      display: none;
+    }
   }
 }
 

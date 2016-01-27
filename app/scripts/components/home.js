@@ -1,31 +1,48 @@
 import React from 'react';
 import Pad from './pad';
-import Pads from '../pads';
+import { connect } from 'react-redux';
+import { handleKeypress, deactivatePad } from '../actions';
 
-export default class extends React.Component {
-  constructor(props) {
+class Home extends React.Component {
+  constructor(props, dispatch) {
     super(props);
-
-    this.state = {
-      items: Pads
-    };
   }
 
-  render() {
+  componentDidMount () {
+    document.addEventListener("keydown", this._handleKeydown.bind(this), false);
+  }
+
+  _handleKeydown (e) {
+    this.props.dispatch(handleKeypress(e.keyCode));
+
+    setTimeout(() => {
+      this.props.dispatch(deactivatePad(e.keyCode));
+    }.bind(this), 275);
+  }
+
+  render () {
     return (
       <div id='container'>
-        {this.state.items.map(this.renderItem)}
+        {this.props.pads.map((pad) => {
+          return <Pad
+            color={pad.color}
+            text={pad.text}
+            sample={pad.sample}
+            key={pad.keycode}
+            keybind={pad.key}
+            keycode={pad.keycode}
+            active={pad.active}
+            onClick={this._handleKeydown.bind(this)} />
+        })}
       </div>
     );
   }
+}
 
-  renderItem(item, index) {
-    return <Pad
-            color={item.color}
-            text={item.text}
-            sample={item.sample}
-            key={item.keycode}
-            keybind={item.key}
-            keycode={item.keycode} />;
+function mapStateToProps(pads) {
+  return {
+    pads
   }
 }
+
+export default connect(mapStateToProps)(Home)

@@ -1,4 +1,4 @@
-export default [
+let Pads = [
   {
     key: 'q',
     keycode: 81,
@@ -44,8 +44,15 @@ export default [
   }, {
     key: 'x',
     keycode: 88,
-    text: 'symbol',
-    sample: 'symbol',
+    text: 'cymbal',
+    sample: 'cymbal',
     color: '#f8f8f8'
   }
 ];
+
+export default Pads.map((pad) => {
+    pad.active = false;
+    pad.audio = new Howl({ urls: ['audio/' + pad.sample + '.WAV'] })
+
+    return pad;
+})
