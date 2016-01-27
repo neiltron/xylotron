@@ -57,6 +57,11 @@ body {
   left: .5em;
   color: #aaa;
 }
+@media screen and (max-width: 700px) {
+  .pad small {
+    display: none;
+  }
+}
 
 .browsehappy {
   margin: 0.2em 0;
