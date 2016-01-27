@@ -207,7 +207,7 @@ var _default = (function (_React$Component) {
           float: 'left'
         },
         label: {
-          transform: 'scale(' + (this.props.active ? .844 : 1) + ')'
+          transform: 'scale(' + (this.props.active ? .844 : 1) + ') translateY(-50%)'
         }
       };
 
@@ -218,7 +218,7 @@ var _default = (function (_React$Component) {
           style: styles.container,
           key: this.props.keycode,
           onClick: this._handleClick.bind(this),
-          onTouchTap: this._handleClick.bind(this)
+          onTouchStart: this._handleClick.bind(this)
         },
         _react2['default'].createElement(
           'div',
