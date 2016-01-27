@@ -20,7 +20,7 @@ export default class extends React.Component {
         float: 'left'
       },
       label: {
-        transform: 'scale(' + (this.props.active ? .844 : 1) + ')'
+        transform: 'scale(' + (this.props.active ? .844 : 1) + ') translateY(-50%)'
       }
     };
 
@@ -30,7 +30,7 @@ export default class extends React.Component {
         style={styles.container}
         key={this.props.keycode}
         onClick={this._handleClick.bind(this)}
-        onTouchTap={this._handleClick.bind(this)}
+        onTouchStart={this._handleClick.bind(this)}
       >
         <div style={styles.label}>
           {this.props.text}
