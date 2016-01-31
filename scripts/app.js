@@ -202,10 +202,6 @@ var _default = (function (_React$Component) {
     key: 'render',
     value: function render() {
       var styles = {
-        container: {
-          backgroundColor: this.props.color,
-          float: 'left'
-        },
         label: {
           transform: 'scale(' + (this.props.active ? .844 : 1) + ') translateY(-50%) translateZ(0)'
         }
@@ -215,7 +211,6 @@ var _default = (function (_React$Component) {
         'div',
         {
           className: 'pad',
-          style: styles.container,
           key: this.props.keycode,
           onClick: this._handleClick.bind(this),
           onTouchStart: this._handleClick.bind(this)
@@ -249,7 +244,7 @@ Object.defineProperty(exports, '__esModule', {
     value: true
 });
 var samples = [{ sample: 'clap' }, { sample: 'closedhihat' }, { sample: 'kick' }, { sample: 'openhihat' }, { sample: 'ride' }, { sample: 'shaker' }, { sample: 'snare' }, { sample: 'cymbal' }],
-    colors = ['#fcfcfc', '#fafafa', '#fdfdfd', '#fbfbfb', '#f9f9f9', '#fcfcfc', '#fafafa', '#f8f8f8'],
+    colors = ['#fcfcfc', '#fafafa', '#f8f8f8', '#f6f6f6', '#fbfbfb', '#f9f9f9', '#f7f7f7', '#f5f5f5'],
     keys = ['q', 'w', 'e', 'r', 'a', 's', 'd', 'f'];
 
 exports['default'] = samples.map(function (pad, i) {
