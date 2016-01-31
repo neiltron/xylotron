@@ -8,7 +8,7 @@ export default class extends React.Component {
   }
 
   _handleClick (e) {
-    this.props.onClick({ keyCode: this.props.keycode });
+    this.props.onClick({ which: this.props.keycode });
 
     e.preventDefault();
   }
@@ -33,7 +33,7 @@ export default class extends React.Component {
         onTouchStart={this._handleClick.bind(this)}
       >
         <div style={styles.label}>
-          {this.props.text}
+          {this.props.sample}
         </div>
         <small>{this.props.keybind}</small>
       </div>

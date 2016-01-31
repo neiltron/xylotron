@@ -13,10 +13,10 @@ class Home extends React.Component {
   }
 
   _handleKeydown (e) {
-    this.props.dispatch(handleKeypress(e.keyCode));
+    this.props.dispatch(handleKeypress(e.which));
 
     setTimeout(() => {
-      this.props.dispatch(deactivatePad(e.keyCode));
+      this.props.dispatch(deactivatePad(e.which));
     }.bind(this), 275);
   }
 
