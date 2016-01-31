@@ -8,7 +8,7 @@ let samples = [
         { sample: 'snare' },
         { sample: 'cymbal' }
     ],
-    colors = ['#fcfcfc', '#fafafa', '#fdfdfd', '#fbfbfb', '#f9f9f9', '#fcfcfc', '#fafafa', '#f8f8f8'],
+    colors = ['#fcfcfc', '#fafafa', '#f8f8f8', '#f6f6f6', '#fbfbfb', '#f9f9f9', '#f7f7f7', '#f5f5f5'],
     keys = ['q', 'w', 'e', 'r', 'a', 's', 'd', 'f'];
 
 

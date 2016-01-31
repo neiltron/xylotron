@@ -15,10 +15,6 @@ export default class extends React.Component {
 
   render() {
     let styles = {
-      container: {
-        backgroundColor: this.props.color,
-        float: 'left'
-      },
       label: {
         transform: 'scale(' + (this.props.active ? .844 : 1) + ') translateY(-50%) translateZ(0)'
       }
@@ -27,7 +23,6 @@ export default class extends React.Component {
     return (
       <div
         className='pad'
-        style={styles.container}
         key={this.props.keycode}
         onClick={this._handleClick.bind(this)}
         onTouchStart={this._handleClick.bind(this)}

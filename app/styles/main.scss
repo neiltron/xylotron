@@ -12,6 +12,8 @@ body {
   width: 25vw;
   height: 50vh;
   position: relative;
+  float: left;
+  background-color: #fafafa;
   text-align: center;
   vertical-align: middle;
   cursor: pointer;
@@ -38,6 +40,8 @@ body {
     position: relative;
     top: 50%;
     letter-spacing: 1px;
+    padding: .5em;
+    word-break: break-all;
     transform: translateY(-50%) translateZ(0);
 
     -webkit-backface-visibility: hidden;
@@ -75,6 +79,26 @@ body {
       display: none;
     }
   }
+}
+
+.pad:nth-child(1) { background-color: #fcfcfc; }
+.pad:nth-child(2) { background-color: #fafafa; }
+.pad:nth-child(3) { background-color: #f8f8f8; }
+.pad:nth-child(4) { background-color: #f6f6f6; }
+.pad:nth-child(5) { background-color: #fbfbfb; }
+.pad:nth-child(6) { background-color: #f9f9f9; }
+.pad:nth-child(7) { background-color: #f7f7f7; }
+.pad:nth-child(8) { background-color: #f5f5f5; }
+
+@media screen and (max-width: $break-extrasmall) {
+  body .pad:nth-child(1) { background-color: #fcfcfc; }
+  body .pad:nth-child(2) { background-color: #fafafa; }
+  body .pad:nth-child(3) { background-color: #fafafa; }
+  body .pad:nth-child(4) { background-color: #f8f8f8; }
+  body .pad:nth-child(5) { background-color: #f8f8f8; }
+  body .pad:nth-child(6) { background-color: #f6f6f6; }
+  body .pad:nth-child(7) { background-color: #f6f6f6; }
+  body .pad:nth-child(8) { background-color: #f4f4f4; }
 }
 
 
