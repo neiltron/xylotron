@@ -47,6 +47,7 @@ Object.defineProperty(exports, '__esModule', {
 });
 exports.handleKeypress = handleKeypress;
 exports.deactivatePad = deactivatePad;
+exports.toggleRecording = toggleRecording;
 
 function handleKeypress(key) {
   return {
@@ -60,6 +61,10 @@ function deactivatePad(key) {
     type: 'deactivatePad',
     key: key
   };
+}
+
+function toggleRecording() {
+  return { type: 'toggleRecording' };
 }
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/scripts/actions/index.js","/app/scripts/actions")
@@ -119,6 +124,11 @@ var Home = (function (_React$Component) {
       }).bind(this), 275);
     }
   }, {
+    key: '_toggleRecording',
+    value: function _toggleRecording() {
+      this.props.dispatch((0, _actions.toggleRecording)());
+    }
+  }, {
     key: 'render',
     value: function render() {
       var _this2 = this;
@@ -136,7 +146,16 @@ var Home = (function (_React$Component) {
             keycode: pad.keycode,
             active: pad.active,
             onClick: _this2._handleKeydown.bind(_this2) });
-        })
+        }),
+        _react2['default'].createElement(
+          'div',
+          { className: 'recording', onClick: this._toggleRecording.bind(this) },
+          this.props.isRecording ? _react2['default'].createElement(
+            'span',
+            null,
+            'recording'
+          ) : 'record'
+        )
       );
     }
   }]);
@@ -144,9 +163,11 @@ var Home = (function (_React$Component) {
   return Home;
 })(_react2['default'].Component);
 
-function mapStateToProps(pads) {
+function mapStateToProps(state) {
   return {
-    pads: pads
+    pads: state.get('pads'),
+    isRecording: state.get('isRecording'),
+    recordedNotes: state.get('recordedNotes')
   };
 }
 
@@ -275,27 +296,54 @@ var _pads = require('../pads');
 
 var _pads2 = _interopRequireDefault(_pads);
 
+var initialState = _immutable2['default'].Map({
+  pads: _pads2['default'],
+  isRecording: false,
+  recordedNotes: _immutable2['default'].List()
+});
+
 exports['default'] = function (state, action) {
-  if (state === undefined) state = _immutable2['default'].List(_pads2['default']);
+  if (state === undefined) state = initialState;
 
   switch (action.type) {
     case 'handleKeypress':
-      return state.map(function (pad) {
+      var pads = state.get('pads'),
+          sample;
+
+      state = state.set('pads', pads.map(function (pad) {
         if (pad.keycode == action.key) {
           pad.active = true;
           pad.audio.play();
+          sample = pad.sample;
         }
 
         return pad;
-      });
+      }));
+
+      if (state.get('isRecording') && typeof sample !== 'undefined') {
+        return state.set('recordedNotes', state.get('recordedNotes').push([sample, window.performance.now()]));
+      } else {
+        return state;
+      }
     case 'deactivatePad':
-      return state.map(function (pad) {
+      var pads = state.get('pads');
+
+      return state.set('pads', pads.map(function (pad) {
         if (pad.keycode == action.key) {
           pad.active = false;
         }
 
         return pad;
-      });
+      }));
+    case 'toggleRecording':
+      var isRecording = state.get('isRecording');
+      state = _immutable2['default'].fromJS(state);
+
+      if (!isRecording) {
+        state.set('recordedNotes', _immutable2['default'].List());
+      }
+
+      return state.set('isRecording', !isRecording);
     default:
       return state;
   }
