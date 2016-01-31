@@ -20,7 +20,7 @@ export default class extends React.Component {
         float: 'left'
       },
       label: {
-        transform: 'scale(' + (this.props.active ? .844 : 1) + ') translateY(-50%)'
+        transform: 'scale(' + (this.props.active ? .844 : 1) + ') translateY(-50%) translateZ(0)'
       }
     };
 
