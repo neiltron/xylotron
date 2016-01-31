@@ -112,10 +112,10 @@ var Home = (function (_React$Component) {
     value: function _handleKeydown(e) {
       var _this = this;
 
-      this.props.dispatch((0, _actions.handleKeypress)(e.keyCode));
+      this.props.dispatch((0, _actions.handleKeypress)(e.which));
 
       setTimeout((function () {
-        _this.props.dispatch((0, _actions.deactivatePad)(e.keyCode));
+        _this.props.dispatch((0, _actions.deactivatePad)(e.which));
       }).bind(this), 275);
     }
   }, {
@@ -194,7 +194,7 @@ var _default = (function (_React$Component) {
   _createClass(_default, [{
     key: '_handleClick',
     value: function _handleClick(e) {
-      this.props.onClick({ keyCode: this.props.keycode });
+      this.props.onClick({ which: this.props.keycode });
 
       e.preventDefault();
     }
@@ -207,7 +207,7 @@ var _default = (function (_React$Component) {
           float: 'left'
         },
         label: {
-          transform: 'scale(' + (this.props.active ? .844 : 1) + ') translateY(-50%)'
+          transform: 'scale(' + (this.props.active ? .844 : 1) + ') translateY(-50%) translateZ(0)'
         }
       };
 
@@ -223,7 +223,7 @@ var _default = (function (_React$Component) {
         _react2['default'].createElement(
           'div',
           { style: styles.label },
-          this.props.text
+          this.props.sample
         ),
         _react2['default'].createElement(
           'small',
@@ -246,63 +246,20 @@ module.exports = exports['default'];
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
-  value: true
+    value: true
 });
-var Pads = [{
-  key: 'q',
-  keycode: 81,
-  text: 'clap',
-  sample: 'clap',
-  color: '#fcfcfc'
-}, {
-  key: 'w',
-  keycode: 87,
-  text: 'closed hihat',
-  sample: 'closedhihat',
-  color: '#fafafa'
-}, {
-  key: 'e',
-  keycode: 69,
-  text: 'kick',
-  sample: 'kick',
-  color: '#fdfdfd'
-}, {
-  key: 'a',
-  keycode: 65,
-  text: 'openhihat',
-  sample: 'openhihat',
-  color: '#fbfbfb'
-}, {
-  key: 's',
-  keycode: 83,
-  text: 'ride',
-  sample: 'ride',
-  color: '#f9f9f9'
-}, {
-  key: 'd',
-  keycode: 68,
-  text: 'shaker',
-  sample: 'shaker',
-  color: '#fcfcfc'
-}, {
-  key: 'z',
-  keycode: 90,
-  text: 'snare',
-  sample: 'snare',
-  color: '#fafafa'
-}, {
-  key: 'x',
-  keycode: 88,
-  text: 'cymbal',
-  sample: 'cymbal',
-  color: '#f8f8f8'
-}];
+var samples = [{ sample: 'clap' }, { sample: 'closedhihat' }, { sample: 'kick' }, { sample: 'openhihat' }, { sample: 'ride' }, { sample: 'shaker' }, { sample: 'snare' }, { sample: 'cymbal' }],
+    colors = ['#fcfcfc', '#fafafa', '#fdfdfd', '#fbfbfb', '#f9f9f9', '#fcfcfc', '#fafafa', '#f8f8f8'],
+    keys = ['q', 'w', 'e', 'r', 'a', 's', 'd', 'f'];
 
-exports['default'] = Pads.map(function (pad) {
-  pad.active = false;
-  pad.audio = new Howl({ urls: ['audio/' + pad.sample + '.WAV'] });
+exports['default'] = samples.map(function (pad, i) {
+    pad.active = false;
+    pad.audio = new Howl({ urls: ['audio/' + pad.sample + '.WAV'] });
+    pad.color = colors[i];
+    pad.key = keys[i];
+    pad.keycode = keys[i].toUpperCase().charCodeAt(0);
 
-  return pad;
+    return pad;
 });
 module.exports = exports['default'];
 
