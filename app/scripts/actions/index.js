@@ -11,3 +11,7 @@ export function deactivatePad(key) {
     key
   };
 }
+
+export function toggleRecording() {
+  return { type: 'toggleRecording' };
+}
