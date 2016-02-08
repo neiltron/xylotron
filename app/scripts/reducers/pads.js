@@ -25,6 +25,7 @@ export default (state = initialState, action) => {
 
       if (state.get('isRecording') && typeof sample !== 'undefined') {
         return state.set('recordedNotes', state.get('recordedNotes').push([sample, window.performance.now()]))
+
       } else {
         return state
       }

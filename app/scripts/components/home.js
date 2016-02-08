@@ -22,6 +22,8 @@ class Home extends React.Component {
 
   _toggleRecording () {
     this.props.dispatch(toggleRecording())
+
+    return false;
   }
 
   render () {
@@ -39,9 +41,16 @@ class Home extends React.Component {
             onClick={this._handleKeydown.bind(this)} />
         })}
 
-        <div className='recording' onClick={this._toggleRecording.bind(this)}>
-          { this.props.isRecording ? <span>recording</span> : 'record' }
-        </div>
+        <footer>
+          <h1>XYLOTRON</h1>
+          <a href='#record' onClick={this._toggleRecording.bind(this)}>
+            { this.props.isRecording ? <span>recording</span> : 'record' }
+          </a>
+          <a href='#play' className={this.props.recordedNotes.length > 0 ? 'play active' : 'play' }>
+            play
+          </a>
+          <a href='#que' className='que'>que?</a>
+        </footer>
       </div>
     );
   }
