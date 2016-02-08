@@ -1,7 +1,7 @@
 import React from 'react';
 import Pad from './pad';
 import { connect } from 'react-redux';
-import { handleKeypress, deactivatePad, toggleRecording } from '../actions';
+import { handleKeypress, deactivatePad, toggleRecording, playRecording } from '../actions';
 
 class Home extends React.Component {
   constructor(props, dispatch) {
@@ -21,7 +21,13 @@ class Home extends React.Component {
   }
 
   _toggleRecording () {
-    this.props.dispatch(toggleRecording())
+    this.props.dispatch(toggleRecording());
+
+    return false;
+  }
+
+  _playRecording () {
+    this.props.dispatch(playRecording());
 
     return false;
   }
@@ -46,7 +52,7 @@ class Home extends React.Component {
           <a href='#record' onClick={this._toggleRecording.bind(this)}>
             { this.props.isRecording ? <span>recording</span> : 'record' }
           </a>
-          <a href='#play' className={this.props.recordedNotes.length > 0 ? 'play active' : 'play' }>
+          <a href='#play' onClick={this._playRecording.bind(this)} className={this.props.recordedNotes.size > 0 ? 'play active' : 'play' }>
             play
           </a>
           <a href='#que' className='que'>que?</a>

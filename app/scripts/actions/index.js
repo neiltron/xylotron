@@ -15,3 +15,7 @@ export function deactivatePad(key) {
 export function toggleRecording() {
   return { type: 'toggleRecording' };
 }
+
+export function playRecording() {
+  return { type: 'playRecording' };
+}

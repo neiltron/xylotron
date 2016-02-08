@@ -24,11 +24,12 @@ export default (state = initialState, action) => {
       }))
 
       if (state.get('isRecording') && typeof sample !== 'undefined') {
-        return state.set('recordedNotes', state.get('recordedNotes').push([sample, window.performance.now()]))
+        return state.set('recordedNotes', state.get('recordedNotes').push([sample, Howler.ctx.currentTime]))
 
       } else {
         return state
       }
+
     case 'deactivatePad':
       var pads = state.get('pads');
 
@@ -39,15 +40,27 @@ export default (state = initialState, action) => {
 
         return pad;
       }))
+
     case 'toggleRecording':
-      var isRecording = state.get('isRecording')
-      state = Immutable.fromJS(state);
+      var isRecording = state.get('isRecording'),
+          state = Immutable.fromJS(state);
 
       if (!isRecording) {
-        state.set('recordedNotes', Immutable.List())
+        state
+          .set('recordedNotes', Immutable.List())
       }
 
       return state.set('isRecording', !isRecording);
+
+    case 'playRecording':
+      var notes = state.get('recordedNotes');
+
+      notes.forEach((note) => {
+        setTimeout(() => {
+          var snd = new Howl({ urls: ['audio/' + note[0] + '.WAV'] })
+          snd.play()
+        }, note[1] * 1000)
+      })
     default:
       return state
   }
