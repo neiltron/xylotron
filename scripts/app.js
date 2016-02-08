@@ -48,6 +48,9 @@ Object.defineProperty(exports, '__esModule', {
 exports.handleKeypress = handleKeypress;
 exports.deactivatePad = deactivatePad;
 exports.toggleRecording = toggleRecording;
+exports.stopRecording = stopRecording;
+exports.playRecording = playRecording;
+exports.stopPlaying = stopPlaying;
 
 function handleKeypress(key) {
   return {
@@ -65,6 +68,18 @@ function deactivatePad(key) {
 
 function toggleRecording() {
   return { type: 'toggleRecording' };
+}
+
+function stopRecording() {
+  return { type: 'stopRecording' };
+}
+
+function playRecording() {
+  return { type: 'playRecording' };
+}
+
+function stopPlaying() {
+  return { type: 'stopPlaying' };
 }
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/scripts/actions/index.js","/app/scripts/actions")
@@ -127,11 +142,41 @@ var Home = (function (_React$Component) {
     key: '_toggleRecording',
     value: function _toggleRecording() {
       this.props.dispatch((0, _actions.toggleRecording)());
+
+      return false;
+    }
+  }, {
+    key: '_playRecording',
+    value: function _playRecording() {
+      var _this2 = this;
+
+      this.props.dispatch((0, _actions.stopRecording)());
+      this.props.dispatch((0, _actions.playRecording)());
+
+      var notes = this.props.recordedNotes;
+
+      notes.forEach(function (note, i) {
+        setTimeout(function () {
+          _this2.props.dispatch((0, _actions.handleKeypress)(note[1]));
+
+          setTimeout((function () {
+            _this2.props.dispatch((0, _actions.deactivatePad)(note[1]));
+          }).bind(_this2), 275);
+        }, note[2] * 1000);
+
+        if (i == notes.size - 1) {
+          setTimeout((function () {
+            _this2.props.dispatch((0, _actions.stopPlaying)());
+          }).bind(_this2), note[2] * 1000);
+        }
+      });
+
+      return false;
     }
   }, {
     key: 'render',
     value: function render() {
-      var _this2 = this;
+      var _this3 = this;
 
       return _react2['default'].createElement(
         'div',
@@ -145,16 +190,39 @@ var Home = (function (_React$Component) {
             keybind: pad.key,
             keycode: pad.keycode,
             active: pad.active,
-            onClick: _this2._handleKeydown.bind(_this2) });
+            onClick: _this3._handleKeydown.bind(_this3) });
         }),
         _react2['default'].createElement(
-          'div',
-          { className: 'recording', onClick: this._toggleRecording.bind(this) },
-          this.props.isRecording ? _react2['default'].createElement(
-            'span',
+          'footer',
+          null,
+          _react2['default'].createElement(
+            'h1',
             null,
-            'recording'
-          ) : 'record'
+            'XYLOTRON'
+          ),
+          _react2['default'].createElement(
+            'a',
+            { href: '#record', onClick: this._toggleRecording.bind(this) },
+            this.props.isRecording ? _react2['default'].createElement(
+              'span',
+              null,
+              'recording'
+            ) : 'record'
+          ),
+          _react2['default'].createElement(
+            'a',
+            { href: '#play', onClick: this._playRecording.bind(this), className: this.props.recordedNotes.size > 0 ? 'play active' : 'play' },
+            this.props.isPlaying ? _react2['default'].createElement(
+              'span',
+              null,
+              'playing'
+            ) : 'play'
+          ),
+          _react2['default'].createElement(
+            'a',
+            { href: '#que', className: 'que' },
+            'que?'
+          )
         )
       );
     }
@@ -166,8 +234,9 @@ var Home = (function (_React$Component) {
 function mapStateToProps(state) {
   return {
     pads: state.get('pads'),
+    recordedNotes: state.get('recordedNotes'),
     isRecording: state.get('isRecording'),
-    recordedNotes: state.get('recordedNotes')
+    isPlaying: state.get('isPlaying')
   };
 }
 
@@ -298,8 +367,10 @@ var _pads2 = _interopRequireDefault(_pads);
 
 var initialState = _immutable2['default'].Map({
   pads: _pads2['default'],
+  recordedNotes: _immutable2['default'].List(),
   isRecording: false,
-  recordedNotes: _immutable2['default'].List()
+  isPlaying: false,
+  playStartTime: 0
 });
 
 exports['default'] = function (state, action) {
@@ -308,23 +379,26 @@ exports['default'] = function (state, action) {
   switch (action.type) {
     case 'handleKeypress':
       var pads = state.get('pads'),
-          sample;
+          sample,
+          keycode;
 
       state = state.set('pads', pads.map(function (pad) {
         if (pad.keycode == action.key) {
           pad.active = true;
           pad.audio.play();
           sample = pad.sample;
+          keycode = pad.keycode;
         }
 
         return pad;
       }));
 
       if (state.get('isRecording') && typeof sample !== 'undefined') {
-        return state.set('recordedNotes', state.get('recordedNotes').push([sample, window.performance.now()]));
+        return state.set('recordedNotes', state.get('recordedNotes').push([sample, keycode, Howler.ctx.currentTime]));
       } else {
         return state;
       }
+
     case 'deactivatePad':
       var pads = state.get('pads');
 
@@ -335,15 +409,26 @@ exports['default'] = function (state, action) {
 
         return pad;
       }));
+
     case 'toggleRecording':
-      var isRecording = state.get('isRecording');
-      state = _immutable2['default'].fromJS(state);
+      var isRecording = state.get('isRecording'),
+          state = _immutable2['default'].fromJS(state);
 
       if (!isRecording) {
         state.set('recordedNotes', _immutable2['default'].List());
       }
 
       return state.set('isRecording', !isRecording);
+
+    case 'stopRecording':
+      return state.set('isRecording', false);
+
+    case 'playRecording':
+      return state.set('isPlaying', true);
+
+    case 'stopPlaying':
+      return state.set('isPlaying', false);
+
     default:
       return state;
   }
@@ -2142,10 +2227,10 @@ module.exports = function hoistNonReactStatics(targetComponent, sourceComponent)
 },{"_process":17,"buffer":9}],13:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /*!
- *  howler.js v1.1.28
+ *  howler.js v1.1.29
  *  howlerjs.com
  *
- *  (c) 2013-2015, James Simpson of GoldFire Studios
+ *  (c) 2013-2016, James Simpson of GoldFire Studios
  *  goldfirestudios.com
  *
  *  MIT License
@@ -2282,7 +2367,7 @@ module.exports = function hoistNonReactStatics(targetComponent, sourceComponent)
 
     /**
      * Check for codec support.
-     * @param  {String} ext Audio file extention.
+     * @param  {String} ext Audio file extension.
      * @return {Boolean}
      */
     codecs: function(ext) {
@@ -2427,7 +2512,7 @@ module.exports = function hoistNonReactStatics(targetComponent, sourceComponent)
 
       // if no audio is available, quit immediately
       if (noAudio) {
-        self.on('loaderror');
+        self.on('loaderror', new Error('No audio support.'));
         return;
       }
 
@@ -2449,7 +2534,7 @@ module.exports = function hoistNonReactStatics(targetComponent, sourceComponent)
           if (ext) {
             ext = ext[1].toLowerCase();
           } else {
-            self.on('loaderror');
+            self.on('loaderror', new Error('Could not extract format from passed URLs, please add format parameter.'));
             return;
           }
         }
@@ -2461,7 +2546,7 @@ module.exports = function hoistNonReactStatics(targetComponent, sourceComponent)
       }
 
       if (!url) {
-        self.on('loaderror');
+        self.on('loaderror', new Error('No codec support for selected audio sources.'));
         return;
       }
 
@@ -2626,7 +2711,7 @@ module.exports = function hoistNonReactStatics(targetComponent, sourceComponent)
 
             // fire ended event
             self.on('end', soundId);
-          }, duration * 1000);
+          }, (duration / self._rate) * 1000);
 
           // store the reference to the timer
           self._onendTimer.push({timer: timerId, id: data.id});
@@ -3203,7 +3288,7 @@ module.exports = function hoistNonReactStatics(targetComponent, sourceComponent)
      */
     _clearEndTimer: function(soundId) {
       var self = this,
-        index = 0;
+        index = -1;
 
       // loop through the timers to find the one associated with this sound
       for (var i=0; i<self._onendTimer.length; i++) {
@@ -3279,13 +3364,12 @@ module.exports = function hoistNonReactStatics(targetComponent, sourceComponent)
      */
     off: function(event, fn) {
       var self = this,
-        events = self['_on' + event],
-        fnString = fn ? fn.toString() : null;
+        events = self['_on' + event];
 
-      if (fnString) {
+      if (fn) {
         // loop through functions in the event for comparison
         for (var i=0; i<events.length; i++) {
-          if (fnString === events[i].toString()) {
+          if (fn === events[i]) {
             events.splice(i, 1);
             break;
           }
@@ -3412,7 +3496,7 @@ module.exports = function hoistNonReactStatics(targetComponent, sourceComponent)
           }
         },
         function(err) {
-          obj.on('loaderror');
+          obj.on('loaderror', err);
         }
       );
     };

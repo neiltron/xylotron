@@ -1,10 +1,3 @@
-body {
-  background: #fafafa;
-  font-family: 'Roboto Mono', "Helvetica Neue", Helvetica, Arial, sans-serif;
-  color: #333;
-  margin: 0;
-}
-
 .pad {
   width: 25vw;
   height: 45vh;
@@ -137,7 +130,7 @@ body {
     background-color: #f4f4f4;
   }
 }
-.recording {
+footer {
   display: block;
   width: 100%;
   height: 10vh;
@@ -145,8 +138,6 @@ body {
   float: left;
   vertical-align: middle;
   background-color: #ddd;
-  padding: 0 .5em;
-  cursor: pointer;
   outline: 0;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
@@ -155,14 +146,48 @@ body {
   -ms-user-select: none;
   user-select: none;
 }
-.recording span {
-  color: red;
+footer h1, footer a {
+  padding: 0 .5em;
+  display: inline-block;
+}
+footer h1 {
+  height: auto;
+  font-size: 1em;
+  margin: 0 inherit;
   font-weight: 900;
+  vertical-align: middle;
+}
+footer a {
+  color: #333;
+}
+footer a span {
+  color: red;
+}
+footer a:visited {
+  color: inherit;
+}
+footer a.play {
+  display: none;
+}
+footer a.play.active {
+  display: inline-block;
+}
+footer .que {
+  float: right;
+  display: block;
+  margin-right: .5em;
 }
 @media screen and (max-width: 500px) {
-  .recording {
+  footer {
     text-align: center;
   }
+}
+
+body {
+  background: #fafafa;
+  font-family: 'Roboto Mono', "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #333;
+  margin: 0;
 }
 
 .browsehappy {
