@@ -23,3 +23,7 @@ export function stopRecording() {
 export function playRecording() {
   return { type: 'playRecording' };
 }
+
+export function stopPlaying() {
+  return { type: 'stopPlaying' };
+}

@@ -60,6 +60,10 @@ export default (state = initialState, action) => {
 
     case 'playRecording':
       return state.set('isPlaying', true)
+
+    case 'stopPlaying':
+      return state.set('isPlaying', false)
+
     default:
       return state
   }

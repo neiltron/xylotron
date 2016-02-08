@@ -1,7 +1,7 @@
 import React from 'react';
 import Pad from './pad';
 import { connect } from 'react-redux';
-import { handleKeypress, deactivatePad, toggleRecording, stopRecording, playRecording } from '../actions';
+import { handleKeypress, deactivatePad, toggleRecording, stopRecording, playRecording, stopPlaying } from '../actions';
 
 class Home extends React.Component {
   constructor(props, dispatch) {
@@ -32,7 +32,7 @@ class Home extends React.Component {
 
     var notes = this.props.recordedNotes;
 
-    notes.forEach((note) => {
+    notes.forEach((note, i) => {
       setTimeout(() => {
         this.props.dispatch(handleKeypress(note[1]))
 
@@ -40,6 +40,12 @@ class Home extends React.Component {
           this.props.dispatch(deactivatePad(note[1]));
         }.bind(this), 275);
       }, note[2] * 1000)
+
+      if (i == notes.size - 1) {
+        setTimeout(() => {
+          this.props.dispatch(stopPlaying())
+        }.bind(this), note[2] * 1000)
+      }
     });
 
     return false;
