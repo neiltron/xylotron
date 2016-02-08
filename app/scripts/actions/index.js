@@ -16,6 +16,10 @@ export function toggleRecording() {
   return { type: 'toggleRecording' };
 }
 
+export function stopRecording() {
+  return { type: 'stopRecording' };
+}
+
 export function playRecording() {
   return { type: 'playRecording' };
 }

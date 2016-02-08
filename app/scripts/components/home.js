@@ -1,7 +1,7 @@
 import React from 'react';
 import Pad from './pad';
 import { connect } from 'react-redux';
-import { handleKeypress, deactivatePad, toggleRecording, playRecording } from '../actions';
+import { handleKeypress, deactivatePad, toggleRecording, stopRecording, playRecording } from '../actions';
 
 class Home extends React.Component {
   constructor(props, dispatch) {
@@ -27,7 +27,20 @@ class Home extends React.Component {
   }
 
   _playRecording () {
+    this.props.dispatch(stopRecording());
     this.props.dispatch(playRecording());
+
+    var notes = this.props.recordedNotes;
+
+    notes.forEach((note) => {
+      setTimeout(() => {
+        this.props.dispatch(handleKeypress(note[1]))
+
+        setTimeout(() => {
+          this.props.dispatch(deactivatePad(note[1]));
+        }.bind(this), 275);
+      }, note[2] * 1000)
+    });
 
     return false;
   }
@@ -53,7 +66,7 @@ class Home extends React.Component {
             { this.props.isRecording ? <span>recording</span> : 'record' }
           </a>
           <a href='#play' onClick={this._playRecording.bind(this)} className={this.props.recordedNotes.size > 0 ? 'play active' : 'play' }>
-            play
+            { this.props.isPlaying ? <span>playing</span> : 'play' }
           </a>
           <a href='#que' className='que'>que?</a>
         </footer>
@@ -65,8 +78,9 @@ class Home extends React.Component {
 function mapStateToProps(state) {
   return {
     pads: state.get('pads'),
+    recordedNotes: state.get('recordedNotes'),
     isRecording: state.get('isRecording'),
-    recordedNotes: state.get('recordedNotes')
+    isPlaying: state.get('isPlaying')
   }
 }
 

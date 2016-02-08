@@ -3,28 +3,31 @@ import Pads from '../pads';
 
 const initialState = Immutable.Map({
   pads: Pads,
+  recordedNotes: Immutable.List(),
   isRecording: false,
-  recordedNotes: Immutable.List()
+  isPlaying: false,
+  playStartTime: 0
 });
 
 export default (state = initialState, action) => {
   switch(action.type) {
     case 'handleKeypress':
       var pads = state.get('pads'),
-          sample;
+          sample, keycode;
 
       state = state.set('pads', pads.map((pad) => {
         if (pad.keycode == action.key) {
           pad.active = true;
           pad.audio.play();
           sample = pad.sample;
+          keycode = pad.keycode;
         }
 
         return pad;
       }))
 
       if (state.get('isRecording') && typeof sample !== 'undefined') {
-        return state.set('recordedNotes', state.get('recordedNotes').push([sample, Howler.ctx.currentTime]))
+        return state.set('recordedNotes', state.get('recordedNotes').push([sample, keycode, Howler.ctx.currentTime]))
 
       } else {
         return state
@@ -52,15 +55,11 @@ export default (state = initialState, action) => {
 
       return state.set('isRecording', !isRecording);
 
-    case 'playRecording':
-      var notes = state.get('recordedNotes');
+    case 'stopRecording':
+      return state.set('isRecording', false);
 
-      notes.forEach((note) => {
-        setTimeout(() => {
-          var snd = new Howl({ urls: ['audio/' + note[0] + '.WAV'] })
-          snd.play()
-        }, note[1] * 1000)
-      })
+    case 'playRecording':
+      return state.set('isPlaying', true)
     default:
       return state
   }
