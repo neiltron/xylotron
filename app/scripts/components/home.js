@@ -1,7 +1,7 @@
 import React from 'react';
 import Pad from './pad';
 import { connect } from 'react-redux';
-import { handleKeypress, deactivatePad } from '../actions';
+import { handleKeypress, deactivatePad, toggleRecording, stopRecording, playRecording, stopPlaying } from '../actions';
 
 class Home extends React.Component {
   constructor(props, dispatch) {
@@ -20,6 +20,40 @@ class Home extends React.Component {
     }.bind(this), 275);
   }
 
+  _toggleRecording () {
+    this.props.dispatch(toggleRecording());
+
+    return false;
+  }
+
+  _playRecording () {
+    this.props.dispatch(stopRecording());
+    this.props.dispatch(playRecording());
+
+    var notes = this.props.recordedNotes,
+        startTime = notes.get(0)[2];
+
+    notes.forEach((note, i) => {
+      var playTimeAt = (note[2] - startTime) * 1000;
+
+      setTimeout(() => {
+        this.props.dispatch(handleKeypress(note[1]))
+
+        setTimeout(() => {
+          this.props.dispatch(deactivatePad(note[1]));
+        }.bind(this), 275);
+      }, playTimeAt)
+
+      if (i == notes.size - 1) {
+        setTimeout(() => {
+          this.props.dispatch(stopPlaying())
+        }.bind(this), playTimeAt)
+      }
+    });
+
+    return false;
+  }
+
   render () {
     return (
       <div id='container'>
@@ -34,14 +68,28 @@ class Home extends React.Component {
             active={pad.active}
             onClick={this._handleKeydown.bind(this)} />
         })}
+
+        <footer>
+          <h1>XYLOTRON</h1>
+          <a href='#record' onClick={this._toggleRecording.bind(this)}>
+            { this.props.isRecording ? <span>recording</span> : 'record' }
+          </a>
+          <a href='#play' onClick={this._playRecording.bind(this)} className={this.props.recordedNotes.size > 0 ? 'play active' : 'play' }>
+            { this.props.isPlaying ? <span>playing</span> : 'play' }
+          </a>
+          <a href='#que' className='que'>que?</a>
+        </footer>
       </div>
     );
   }
 }
 
-function mapStateToProps(pads) {
+function mapStateToProps(state) {
   return {
-    pads
+    pads: state.get('pads'),
+    recordedNotes: state.get('recordedNotes'),
+    isRecording: state.get('isRecording'),
+    isPlaying: state.get('isPlaying')
   }
 }
 

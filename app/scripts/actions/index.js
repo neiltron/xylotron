@@ -11,3 +11,19 @@ export function deactivatePad(key) {
     key
   };
 }
+
+export function toggleRecording() {
+  return { type: 'toggleRecording' };
+}
+
+export function stopRecording() {
+  return { type: 'stopRecording' };
+}
+
+export function playRecording() {
+  return { type: 'playRecording' };
+}
+
+export function stopPlaying() {
+  return { type: 'stopPlaying' };
+}
