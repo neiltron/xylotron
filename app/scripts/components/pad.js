@@ -1,61 +1,34 @@
 import React from 'react';
-import speechSynthesis from 'speech-synthesis';
+import { deactivatePad } from '../actions';
+import howler from 'howler';
 
 export default class extends React.Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      active: false
-    }
   }
 
-  componentWillMount() {
-    if (typeof this.props.keycode !== 'undefined') {
-      document.addEventListener("keydown", this._handleKeydown.bind(this), false);
-    }
-  }
+  _handleClick (e) {
+    this.props.onClick({ which: this.props.keycode });
 
-  componentWillUnmount() {
-    document.removeEventListener('keydown', this._handleKeydown.bind(this), false);
-  }
-
-  _handleKeydown(e) {
-    if (e.keyCode == this.props.keycode) {
-      // daniel,
-      speechSynthesis(this.props.pronunciation, 'Ellen');
-
-      this.setState({
-        active: true
-      })
-
-      setTimeout(() => {
-        this.setState({
-          active: false
-        })
-      }.bind(this), 275)
-    }
-  }
-
-  _handleClick () {
-    this._handleKeydown({ keyCode: this.props.keycode })
+    e.preventDefault();
   }
 
   render() {
     let styles = {
-      container: {
-        backgroundColor: this.props.color,
-        float: 'left'
-      },
       label: {
-        transform: 'scale(' + (this.state.active ? .6667 : 1) + ')'
+        transform: 'scale(' + (this.props.active ? .844 : 1) + ') translateY(-50%) translateZ(0)'
       }
     };
 
     return (
-      <div className='pad' style={styles.container} key={this.props.keycode} onClick={this._handleClick.bind(this)}>
+      <div
+        className='pad'
+        key={this.props.keycode}
+        onClick={this._handleClick.bind(this)}
+        onTouchStart={this._handleClick.bind(this)}
+      >
         <div style={styles.label}>
-          {this.props.text}
+          {this.props.sample}
         </div>
         <small>{this.props.keybind}</small>
       </div>
