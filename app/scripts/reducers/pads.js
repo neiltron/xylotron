@@ -49,8 +49,7 @@ export default (state = initialState, action) => {
           state = Immutable.fromJS(state);
 
       if (!isRecording) {
-        state
-          .set('recordedNotes', Immutable.List())
+        state = state.set('recordedNotes', Immutable.List())
       }
 
       return state.set('isRecording', !isRecording);

@@ -30,21 +30,24 @@ class Home extends React.Component {
     this.props.dispatch(stopRecording());
     this.props.dispatch(playRecording());
 
-    var notes = this.props.recordedNotes;
+    var notes = this.props.recordedNotes,
+        startTime = notes.get(0)[2];
 
     notes.forEach((note, i) => {
+      var playTimeAt = (note[2] - startTime) * 1000;
+
       setTimeout(() => {
         this.props.dispatch(handleKeypress(note[1]))
 
         setTimeout(() => {
           this.props.dispatch(deactivatePad(note[1]));
         }.bind(this), 275);
-      }, note[2] * 1000)
+      }, playTimeAt)
 
       if (i == notes.size - 1) {
         setTimeout(() => {
           this.props.dispatch(stopPlaying())
-        }.bind(this), note[2] * 1000)
+        }.bind(this), playTimeAt)
       }
     });
 
