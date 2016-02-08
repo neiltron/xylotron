@@ -153,21 +153,24 @@ var Home = (function (_React$Component) {
       this.props.dispatch((0, _actions.stopRecording)());
       this.props.dispatch((0, _actions.playRecording)());
 
-      var notes = this.props.recordedNotes;
+      var notes = this.props.recordedNotes,
+          startTime = notes.get(0)[2];
 
       notes.forEach(function (note, i) {
+        var playTimeAt = (note[2] - startTime) * 1000;
+
         setTimeout(function () {
           _this2.props.dispatch((0, _actions.handleKeypress)(note[1]));
 
           setTimeout((function () {
             _this2.props.dispatch((0, _actions.deactivatePad)(note[1]));
           }).bind(_this2), 275);
-        }, note[2] * 1000);
+        }, playTimeAt);
 
         if (i == notes.size - 1) {
           setTimeout((function () {
             _this2.props.dispatch((0, _actions.stopPlaying)());
-          }).bind(_this2), note[2] * 1000);
+          }).bind(_this2), playTimeAt);
         }
       });
 
@@ -415,7 +418,7 @@ exports['default'] = function (state, action) {
           state = _immutable2['default'].fromJS(state);
 
       if (!isRecording) {
-        state.set('recordedNotes', _immutable2['default'].List());
+        state = state.set('recordedNotes', _immutable2['default'].List());
       }
 
       return state.set('isRecording', !isRecording);
