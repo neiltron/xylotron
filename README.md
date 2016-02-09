@@ -1,4 +1,7 @@
 # XYLOTRON 
+
+[![Code Climate](https://codeclimate.com/github/neiltron/xylotron/badges/gpa.svg)](https://codeclimate.com/github/neiltron/xylotron)
+
 Now in hyper-monospace.
 
 Xylotron is a drum pad using React, Redux, and Howler. To run locally, clone the repo, then:
