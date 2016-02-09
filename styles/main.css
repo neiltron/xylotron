@@ -194,6 +194,37 @@ footer .que {
   }
 }
 
+#about {
+  display: none;
+  height: 100vh;
+  width: 100vw;
+  background: #eee;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+#about.active {
+  display: block;
+}
+#about h2 {
+  padding: 0 1em;
+  font-size: 3em;
+}
+#about p {
+  padding: 0 2em;
+  font-size: 1.5em;
+}
+@media screen and (max-width: 700px) {
+  #about h2 {
+    font-size: 2em;
+    padding: 0 .5em;
+  }
+  #about p {
+    padding: 0 .75em;
+    font-size: 1.5em;
+  }
+}
+
 body {
   background: #fafafa;
   font-family: 'Roboto Mono', "Helvetica Neue", Helvetica, Arial, sans-serif;
