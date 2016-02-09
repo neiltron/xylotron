@@ -1,7 +1,7 @@
 # XYLOTRON 
 Now in hyper-monospace.
 
-Xylotron is a drum pad using React and Redux. To run locally, clone the repo, then:
+Xylotron is a drum pad using React, Redux, and Howler. To run locally, clone the repo, then:
 
 ````
 npm install
