@@ -6,7 +6,6 @@ export default class extends React.Component {
   }
 
   render() {
-    console.log(this.props)
     return (
       <div id='about' className={this.props.active ? 'active' : ''}>
         <h2>WHAT IS THIS?</h2>

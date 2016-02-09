@@ -16,7 +16,7 @@ export default (state = initialState, action) => {
           sample, keycode;
 
       state = state.set('pads', pads.map((pad) => {
-        if (pad.keycode == action.key) {
+        if (pad.keycode === action.key) {
           pad.active = true;
           pad.audio.play();
           sample = pad.sample;
@@ -37,7 +37,7 @@ export default (state = initialState, action) => {
       var pads = state.get('pads');
 
       return state.set('pads', pads.map((pad) => {
-        if (pad.keycode == action.key) {
+        if (pad.keycode === action.key) {
           pad.active = false;
         }
 

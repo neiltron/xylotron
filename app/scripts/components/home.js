@@ -70,7 +70,6 @@ class Home extends React.Component {
   }
 
   render () {
-    console.log(this.props.aboutIsActive)
     return (
       <div id='container'>
         {this.props.pads.map((pad) => {
