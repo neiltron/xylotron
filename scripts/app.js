@@ -197,7 +197,6 @@ var Home = (function (_React$Component) {
     value: function render() {
       var _this3 = this;
 
-      console.log(this.props.aboutIsActive);
       return _react2['default'].createElement(
         'div',
         { id: 'container' },
@@ -382,7 +381,6 @@ var _default = (function (_React$Component) {
   _createClass(_default, [{
     key: 'render',
     value: function render() {
-      console.log(this.props);
       return _react2['default'].createElement(
         'div',
         { id: 'about', className: this.props.active ? 'active' : '' },
@@ -490,7 +488,7 @@ exports['default'] = function (state, action) {
           keycode;
 
       state = state.set('pads', pads.map(function (pad) {
-        if (pad.keycode == action.key) {
+        if (pad.keycode === action.key) {
           pad.active = true;
           pad.audio.play();
           sample = pad.sample;
@@ -510,7 +508,7 @@ exports['default'] = function (state, action) {
       var pads = state.get('pads');
 
       return state.set('pads', pads.map(function (pad) {
-        if (pad.keycode == action.key) {
+        if (pad.keycode === action.key) {
           pad.active = false;
         }
 
