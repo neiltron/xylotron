@@ -6,7 +6,7 @@ const initialState = Immutable.Map({
   recordedNotes: Immutable.List(),
   isRecording: false,
   isPlaying: false,
-  playStartTime: 0
+  aboutIsActive: false
 });
 
 export default (state = initialState, action) => {
@@ -62,6 +62,11 @@ export default (state = initialState, action) => {
 
     case 'stopPlaying':
       return state.set('isPlaying', false)
+
+    case 'toggleAbout':
+      var aboutIsActive = state.get('aboutIsActive');
+
+      return state.set('aboutIsActive', !aboutIsActive)
 
     default:
       return state

@@ -1,7 +1,16 @@
 import React from 'react';
 import Pad from './pad';
+import Que from './que';
 import { connect } from 'react-redux';
-import { handleKeypress, deactivatePad, toggleRecording, stopRecording, playRecording, stopPlaying } from '../actions';
+import {
+  handleKeypress,
+  deactivatePad,
+  toggleRecording,
+  stopRecording,
+  playRecording,
+  stopPlaying,
+  toggleAbout
+} from '../actions';
 
 class Home extends React.Component {
   constructor(props, dispatch) {
@@ -54,7 +63,14 @@ class Home extends React.Component {
     return false;
   }
 
+  _toggleAbout () {
+    this.props.dispatch(toggleAbout());
+
+    return false;
+  }
+
   render () {
+    console.log(this.props.aboutIsActive)
     return (
       <div id='container'>
         {this.props.pads.map((pad) => {
@@ -77,8 +93,10 @@ class Home extends React.Component {
           <a href='#play' onClick={this._playRecording.bind(this)} className={this.props.recordedNotes.size > 0 ? 'play active' : 'play' }>
             { this.props.isPlaying ? <span>playing</span> : 'play' }
           </a>
-          <a href='#que' className='que'>que?</a>
+          <a href='#que' className='que' onClick={this._toggleAbout.bind(this)}>que?</a>
         </footer>
+
+        <Que active={this.props.aboutIsActive} toggleAbout={this._toggleAbout.bind(this)} />
       </div>
     );
   }
@@ -89,7 +107,8 @@ function mapStateToProps(state) {
     pads: state.get('pads'),
     recordedNotes: state.get('recordedNotes'),
     isRecording: state.get('isRecording'),
-    isPlaying: state.get('isPlaying')
+    isPlaying: state.get('isPlaying'),
+    aboutIsActive: state.get('aboutIsActive')
   }
 }
 

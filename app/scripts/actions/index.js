@@ -27,3 +27,7 @@ export function playRecording() {
 export function stopPlaying() {
   return { type: 'stopPlaying' };
 }
+
+export function toggleAbout () {
+  return { type: 'toggleAbout' };
+}
