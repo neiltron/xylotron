@@ -37,12 +37,6 @@
   -webkit-backface-visibility: hidden;
   -moz-backface-visibility: hidden;
   -ms-backface-visibility: hidden;
-  -webkit-transition: -webkit-transform 250ms cubic-bezier(0.175, 0.885, 0.32, 1);
-  -webkit-transition: -webkit-transform 250ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  transition: transform 250ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  -webkit-transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1);
-  -webkit-transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 @media screen and (max-width: 700px) {
   .pad div {
@@ -195,16 +189,14 @@ footer .que {
 }
 
 #about {
-  display: none;
+  display: block;
   height: 100vh;
   width: 100vw;
+  line-height: 5vh;
   background: #eee;
   position: absolute;
-  top: 0;
+  top: 100vh;
   left: 0;
-}
-#about.active {
-  display: block;
 }
 #about h2 {
   padding: 0 1em;
@@ -213,6 +205,12 @@ footer .que {
 #about p {
   padding: 0 2em;
   font-size: 1.5em;
+}
+#about a {
+  padding: 0;
+  display: inline;
+  float: none;
+  color: initial;
 }
 @media screen and (max-width: 700px) {
   #about h2 {
@@ -230,6 +228,7 @@ body {
   font-family: 'Roboto Mono', "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: #333;
   margin: 0;
+  overflow: hidden;
 }
 
 .browsehappy {
