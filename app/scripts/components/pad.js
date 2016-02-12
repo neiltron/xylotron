@@ -1,6 +1,7 @@
 import React from 'react';
 import { deactivatePad } from '../actions';
 import howler from 'howler';
+import { Motion, spring } from 'react-motion';
 
 export default class extends React.Component {
   constructor(props) {
@@ -14,24 +15,31 @@ export default class extends React.Component {
   }
 
   render() {
-    let styles = {
-      label: {
-        transform: 'scale(' + (this.props.active ? .844 : 1) + ') translateY(-50%) translateZ(0)'
-      }
-    };
+    let springSettings = { stiffness: 300, damping: 10 };
+    let style;
+
+    if (this.props.active) {
+      style = { scale: 1 }
+    } else {
+      style = { scale: spring(.844, springSettings) }
+    }
 
     return (
-      <div
-        className='pad'
-        key={this.props.keycode}
-        onClick={this._handleClick.bind(this)}
-        onTouchStart={this._handleClick.bind(this)}
-      >
-        <div style={styles.label}>
-          {this.props.sample}
-        </div>
-        <small>{this.props.keybind}</small>
-      </div>
+      <Motion style={style}>
+        {({scale}) =>
+          <div
+            className='pad'
+            key={this.props.keycode}
+            onMouseDown={this._handleClick.bind(this)}
+            onTouchStart={this._handleClick.bind(this)}
+          >
+            <div style={{transform: `scale(${scale})`}}>
+              {this.props.sample}
+            </div>
+            <small>{this.props.keybind}</small>
+          </div>
+        }
+      </Motion>
     );
   }
 }

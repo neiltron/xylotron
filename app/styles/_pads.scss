@@ -38,18 +38,6 @@
     -moz-backface-visibility:    hidden;
     -ms-backface-visibility:     hidden;
 
-    -webkit-transition: transform 250ms cubic-bezier(0.175, 0.885, 0.320, 1);
-    -webkit-transition: transform 250ms cubic-bezier(0.175, 0.885, 0.320, 1.275);
-       -moz-transition: transform 250ms cubic-bezier(0.175, 0.885, 0.320, 1.275);
-         -o-transition: transform 250ms cubic-bezier(0.175, 0.885, 0.320, 1.275);
-            transition: transform 250ms cubic-bezier(0.175, 0.885, 0.320, 1.275);
-
-    -webkit-transition-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);
-    -webkit-transition-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1.275);
-       -moz-transition-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1.275);
-         -o-transition-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1.275);
-            transition-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1.275);
-
     @media screen and (max-width: $break-small) {
       font-size: 1.15em;
     }
