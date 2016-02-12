@@ -7,7 +7,7 @@ export default class extends React.Component {
 
   render() {
     return (
-      <div id='about' className={this.props.active ? 'active' : ''}>
+      <div id='about'>
         <h2>WHAT IS THIS?</h2>
 
         <p>XYLOTRON is a drumpad. Record. Playback. That's pretty much it for now.</p>

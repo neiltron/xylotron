@@ -1,15 +1,13 @@
 #about {
-  display: none;
+  display: block;
   height: 100vh;
   width: 100vw;
+  line-height: 5vh;
   background: #eee;
   position: absolute;
-  top: 0;
+  top: 100vh;
   left: 0;
 
-  &.active {
-    display: block;
-  }
 
   h2 {
     padding: 0 1em;
@@ -18,6 +16,13 @@
   p {
     padding: 0 2em;
     font-size: 1.5em;
+  }
+
+  a {
+    padding: 0;
+    display: inline;
+    float: none;
+    color: initial;
   }
 
   @media screen and (max-width: $break-small) {
